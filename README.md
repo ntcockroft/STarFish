@@ -10,14 +10,15 @@ for each.
 ### Prerequisites
 
 STarFish was built using python and anaconda was used to manage the required 
-packages and dependencies. To get started, download and install anaconda:
+packages and dependencies. To get started, download and install the python3 
+version of miniconda:
 
-https://www.anaconda.com/download/
+https://docs.conda.io/en/latest/miniconda.html
 
 ### Installing and Running STarFish
 
 Download the STarFish repository and extract files to desired location.
-Open Anaconda Prompt (This was installed with anaconda)
+Open Anaconda Prompt (This was installed with anaconda).
 
 Note: After extraction, make sure that opening the "STarFish-master" folder 
 that you see folders and files named "build_model", "web_app",
@@ -30,36 +31,69 @@ In the prompt type:
 ```
 cd /your/path/to/STarFish-master
 ```
+For windows use "\\" instead of "/", for example:
+```
+cd \your\path\to\STarFish-master
+```
+
 Replace "/your/path/to/" with the pathname of the directory where you 
-extracted the repository files to
+extracted the repository files to.
+
+So if you extracted to your Downloads folder you would type in the prompt:
+```
+cd Desktop/STarFish-master
+```
+or for windows:
+```
+cd Desktop\STarFish-master
+```
+
+If you extracted to a different location and are unfamiliar with naviagation
+via pathnames, then open the file explore GUI, navigate to the directory,
+and copy the path name from the address bar into the anaconda prompt.
+For example:
+
+![](https://i.imgur.com/H5vy9Ht.png)
+```
+cd C:\Users\cockr\Documents\STarFish-master
+```
 
 Once you have navigated to the repository in the Anaconda Prompt install
-the anaconda environment from the environment.yml file
+the anaconda environment from the environment.yml file.
 
 In the prompt type:
 ```
 conda env create -f environment.yml
 ```
-The creation of the conda environment may take several minutes
+The creation of the conda environment may take several minutes.
 
 Following successulf creation of the conda environment, activate the 
-environment
+environment:
 ```
 conda activate STarFish
 ```
 
-Change to the web_app directory
+Change to the web_app directory:
 ```
 cd web_app
 ```
 
-Run the STarFish web application
+Set the FLASK_APP environmental variable:
 ```
-python app.py
+export FLASK_APP=app.py
+```
+or for windows:
+```
+set FLASK_APP=app.py
+```
+
+Run the STarFish web application:
+```
+flask run
 ```
 
 In your web browser, navigate to the "Running on" url that was listed in the
-prompt
+prompt:
 ```
 * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
 ```
