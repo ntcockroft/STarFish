@@ -5,7 +5,7 @@ identification. STarFish takes a chemical structure as an input and provides
 a ranked list of potential protein targets along with a probability score 
 for each.
 
-![](https://media.giphy.com/media/fV2nYLg4FFp7cSTBtM/giphy.gif)
+![](https://i.imgur.com/B8xJKGC.gif)
 
 ### Prerequisites
 
