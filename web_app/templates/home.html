@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+
+body {
+  padding:0;
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.background {
+  background-color: #abacae;
+  height: 950px;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: relative;
+}
+
+h1 {
+  font-size: 48px;
+}
+
+
+.text {
+  text-align: center;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -75%);
+  color: white;
+}
+</style>
+</head>
+<body>
+
+<div class="background">
+  <div class="text">
+
+<html>
+<head>
+
+<script type="text/javascript" language="javascript" src="static/jsme.nocache.js"></script>
+
+<title>STarFish</title>
+
+</head>
+
+<script type="text/javascript">
+
+	//this function will be called after the JavaScriptApplet code has been loaded.
+	function jsmeOnLoad() {
+
+		//Instantiate a new JSME:
+		//arguments: HTML id, width, height (must be string not number!)
+
+		jsmeApplet = new JSApplet.JSME("appletContainer", "380px", "340px", {
+			//optional parameters
+			"options" : "query,hydrogens"
+		});
+
+		//Alternative method: the size is not specified: the applet will use 100% of the space of its parent container "appletContainer".
+		//Be sure that the parent container size > 0, otherwise the applet will not be visible
+
+		/*    	jsmeApplet = new JSApplet.JSME("appletContainer",  {
+		 //optional parameters
+		 "options" : "query,hydrogens",
+		 "jme" : startingStructure
+		 });
+		 */
+
+		//Opera patch: if some applet elements are not displayed, force repaint
+		//jsmeApplet.deferredRepaint(); //the applet will be repainted after the browser event loop returns
+		//it is recommended to use it if the JSME is created outside this jsmeOnLoad() function
+
+		//jsmeApplet has the same API as the original Java applet
+		//One can mimic the JME Java applet access to simplify the adaptation of HTML and JavaScript code:
+		document.JME = jsmeApplet;
+
+		//suggestion 
+		//all buttons that access the jsme variable were disabled in the html
+		//Now enable all buttons that can access the jsme variable since the applet is ready
+		//example:
+		//document.getElementById("button").disabled=false;
+
+	}
+
+
+
+	function getSmiles() {
+		var data = document.JME.smiles();
+		document.getElementById("jme_output").value = data;
+	}
+
+</script>
+
+<body>
+<!-- RECOMMENDED if your web app will not function without JavaScript enabled -->
+<noscript>
+	<div
+		style="width: 22em; position: absolute; left: 50%; margin-left: -11em; color: red; background-color: white; border: 1px solid red; padding: 4px; font-family: sans-serif">
+		Your web browser must have JavaScript enabled in order for this
+		application to display correctly.</div>
+</noscript>
+<h1 align="center">STarFish</h1>
+
+<table align="center">
+	<tr>
+		<td id="appletContainer"></td>
+	</tr>
+</table>
+
+
+<p></p>
+<p></p>
+
+<table align="center">
+	<tr>
+		<td align= "center" colspan="2" style="font-weight: bold;"> Convert chemical
+			structure from applet <br>or paste SMILES string into text box:</td>
+	</tr>
+	<tr>
+
+		<td align="center">
+			<button type="button" onclick='getSmiles();'>Get smiles</button>
+		</td>
+
+	</tr>
+	<tr>
+		<td align="center">
+			<form action = "/predict" method="POST" id="predForm">
+				<TEXTAREA name="text" id="jme_output" rows="1" cols="50" ></TEXTAREA>			
+			</form>
+			
+		</td>
+	
+	</tr>
+	<tr>
+		<td align="center">
+			<input type ="submit" value="Go Fish" form="predForm" align="center">
+		</td>
+	
+	</tr>
+
+</table>
+</body>
+</html>
+ </div>
+</div>
+
+
+</body>
+</html>
+
+
+

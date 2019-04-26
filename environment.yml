@@ -1,0 +1,21 @@
+name: STarFish
+channels:
+  - rdkit
+  - anaconda
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.6.5
+  - molvs=0.1.1
+  - numpy=1.12.1
+  - numpy-base=1.14.3
+  - numpydoc=0.7.0
+  - pandas=0.22.0
+  - rdkit=2018.03.3.0
+  - scipy=1.0.0
+  - flask=0.12.2
+  - flask-cors=3.0.3
+  - pip:
+    - joblib==0.12.2
+    - scikit-learn==0.19.1
+

@@ -1,0 +1,38 @@
+#PBS -N fcfp_cv_clf_cmbn_MLP
+#PBS -l nodes=1:ppn=28
+#PBS -l walltime=4:00:00
+
+module load python/3.6-conda5.2
+source activate STarFish
+
+cd $PBS_O_WORKDIR
+
+SCRPT_DIR=`readlink -f  ../../../../py/`
+export PYTHONPATH=$PYTHONPATH:$SCRPT_DIR
+
+#Copy required files to temp directory
+cp ../../y* $TMPDIR
+cp ../../*_MLP_pred.csv $TMPDIR
+cd $TMPDIR
+
+
+#Train and test metaclassifier, copy output files back to submission directory
+python $SCRPT_DIR/train_test_metaclassifier.py \
+-P  train_MLP_pred.csv test_MLP_pred.csv -y y_train.csv \
+> train_test_metaclassifier.log 2> train_test_metaclassifier.error
+
+cp *.log $PBS_O_WORKDIR
+cp *.error $PBS_O_WORKDIR
+cp *stack_pred.csv $PBS_O_WORKDIR
+cp *.joblib $PBS_O_WORKDIR
+
+#Evaluate performance of the base and stacked classifier, copy output files
+#back to submission directory
+python $SCRPT_DIR/eval_performance.py \
+-P train_MLP_pred.csv train_stack_pred.csv \
+test_MLP_pred.csv test_stack_pred.csv \
+-y y_train.csv y_test.csv > eval_performance.log 2> eval_performance.error
+
+cp *.log $PBS_O_WORKDIR
+cp *.error $PBS_O_WORKDIR
+cp *results.csv $PBS_O_WORKDIR

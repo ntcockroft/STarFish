@@ -1,0 +1,35 @@
+#PBS -N base_cv
+#PBS -l nodes=1:ppn=28
+#PBS -l walltime=11:00:00
+
+
+#Activate python and conda environment
+module load python/3.6-conda5.2
+source activate STarFish
+
+cd $PBS_O_WORKDIR
+
+SCRPT_DIR=`readlink -f  ../../../../py/`
+export PYTHONPATH=$PYTHONPATH:$SCRPT_DIR
+
+#copy required files to compute node
+cp X_* $TMPDIR
+cp y_* $TMPDIR
+cd $TMPDIR
+
+#Train base classifiers
+python $SCRPT_DIR/train_model.py -X X_train.csv -y y_train.csv \
+-c RF KNN MLP LR > train_model.log 2> train_model.error
+cp *.joblib $PBS_O_WORKDIR
+tar -czvf RF_models.tar.gz RF_models/
+cp RF_models.tar.gz $PBS_O_WORKDIR
+cp *.log $PBS_O_WORKDIR
+cp *.error $PBS_O_WORKDIR
+
+#Predict using base classifiers
+python $SCRPT_DIR/test_model.py -X X_test.csv \
+-y y_test.csv -c RF KNN MLP LR > test_model.log 2> test_model.error
+cp *pred.csv $PBS_O_WORKDIR
+cp *.log $PBS_O_WORKDIR
+cp *.error $PBS_O_WORKDIR
+

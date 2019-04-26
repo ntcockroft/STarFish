@@ -1,0 +1,60 @@
+<!doctype html>
+<style>
+table.dataframe, .dataframe th, .dataframe td {
+  border: none;
+  border-bottom: 1px solid #C8C8C8;
+  border-collapse: collapse;
+  text-align:left;
+  padding: 10px;
+  margin-bottom: 0px;
+  font-size: 0.9em;
+}
+
+
+tr:nth-child(odd)	{ background-color:#eee; }
+tr:nth-child(even)	{ background-color:#fff; }
+tr:hover            { background-color: #ffff99; }
+
+body {
+  padding:0;
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.background {
+  background-color: #abacae;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: relative;
+}
+
+h2 {
+  text-align: center;
+  position: relative;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, 10%);
+  color: white;
+  font-family: Arial, Helvetica, sans-serif;
+  margin: 0;
+  font-size: 32px;
+}
+</style>
+
+<title>STarFish</title>
+<div class="background">
+<h2 align="center">Query Molecule</h2>
+<p></p>
+<center><img src="http://hulab.rxnfinder.org/smi2img/{{structure}}/?width=300&height=300"></center> 
+<p></p>
+<p></p>
+<h2 align="center">Predicted Targets</h2>
+<table align="center">
+		<div class="text">
+		</div>	
+		<p></p>
+		<td>{{ table | safe }}</td>
+
+</table>
+</div>

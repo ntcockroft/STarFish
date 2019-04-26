@@ -1,0 +1,27 @@
+#PBS -N fcfp_cv_clf_LRbase
+#PBS -l nodes=1:ppn=28
+#PBS -l walltime=1:00:00
+
+module load python/3.6-conda5.2
+source activate STarFish
+
+cd $PBS_O_WORKDIR
+
+SCRPT_DIR=`readlink -f  ../../../../py/`
+export PYTHONPATH=$PYTHONPATH:$SCRPT_DIR
+
+#Copy required files to temp directory
+cp ../../y* $TMPDIR
+cp ../../*_LR_pred.csv $TMPDIR
+cd $TMPDIR
+
+
+#Evaluate performance of the base classifier, copy output filesback to 
+#submission directory
+python $SCRPT_DIR/eval_performance.py \
+-P train_LR_pred.csv test_LR_pred.csv \
+-y y_train.csv y_test.csv > eval_performance.log 2> eval_performance.error
+
+cp *.log $PBS_O_WORKDIR
+cp *.error $PBS_O_WORKDIR
+cp *results.csv $PBS_O_WORKDIR
